@@ -1,5 +1,5 @@
 import { wait } from "../util/util.js";
-import { playNote } from "../audio/audio.js";
+import { playNote, audioContext } from "../audio/audio.js";
 import EventClass from "../util/EventClass.js";
 
 /**
@@ -8,6 +8,11 @@ import EventClass from "../util/EventClass.js";
  * @type {HTMLInputElement}
  */
 const progressBar = document.getElementById("progress-bar");
+document.onClick = () => {
+    if (audioContext.state === "suspended") {
+    audioContext.resume().then(() => console.log("resumed"));
+    }
+}
 
 /**
  * The looping checkbox.
