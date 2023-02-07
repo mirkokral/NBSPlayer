@@ -54,3 +54,4 @@ export function playNote(key, instrument, velocity, panning, pitch) {
 export function decodeAudioData(buffer) {
     return audioContext.decodeAudioData(buffer);
 }
+export audioContext
