@@ -1,4 +1,4 @@
-const audioContext = new AudioContext();
+export const audioContext = new AudioContext();
 const audioDestination = audioContext.createGain();
 audioDestination.connect(audioContext.destination);
 
@@ -54,4 +54,4 @@ export function playNote(key, instrument, velocity, panning, pitch) {
 export function decodeAudioData(buffer) {
     return audioContext.decodeAudioData(buffer);
 }
-export audioContext
+
