@@ -8,11 +8,7 @@ import EventClass from "../util/EventClass.js";
  * @type {HTMLInputElement}
  */
 const progressBar = document.getElementById("progress-bar");
-document.onClick = () => {
-    if (audioContext.state === "suspended") {
-    audioContext.resume().then(() => console.log("resumed"));
-    }
-}
+
 
 /**
  * The looping checkbox.
@@ -249,14 +245,18 @@ export default class Player extends EventClass {
      * @return {Promise<void>}
      */
     async play() {
-        this.stop = false;
+        
+        audioContext.resume().then(async () => {
+            this.stop = false;
 
-        // eslint-disable-next-line no-unmodified-loop-condition
-        while (!this.stop) {
-            // Run the next job
-            this.currentJob = this.runJob();
-            await this.currentJob;
-        }
+            // eslint-disable-next-line no-unmodified-loop-condition
+            while (!this.stop) {
+                // Run the next job
+                this.currentJob = this.runJob();
+                await this.currentJob;
+            }
+        
+        });
     }
 
     /**
@@ -318,8 +318,11 @@ export default class Player extends EventClass {
      * @return {void}
      */
     async pause() {
-        this.stop = true;
-        await this.currentJob;
+        audioContext.suspend().then(async () => {
+            this.stop = true;
+            await this.currentJob;
+        
+        })
     }
 
     /**
